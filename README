@@ -1,0 +1,73 @@
+These kernels are designed for the Zotac Zbox AMD E-350 series mini ITX
+desktop computer. If you need LUKS/LVM2 you will need to generate a ramdisk.
+If you don't intend to use LVM2 and/or LUKS then you should be able to boot
+this kernel without the need of a ramdisk (initrd).  This kernel is provided 
+free of charge however it may contain binary BLOBS/Firmware. By using this
+kernel you agree that it is for non-profit personal use only, and you must
+obide by all licensing provided by the source code.  The Source Code links
+can be found in the SOURCE file under each directory. 
+
+Here is a summary of Hardware support:
+
+USB 3.0 - working
+Legacy USB - working
+SATA (AHCI mode) - working 
+SATA (IDE mode) - working
+eSata external port - (untested)
+Radeon HD 6310 graphics - working (built in support for Radeon open source) use nomodeset kernel cmdline for FGLRX
+HDMI Video - working
+PowerNow! CPU Throttling - working
+PWM Fan Control - Working
+IT87 Motherboard Sensors - working
+RTL8111/8168B PCI Express Gigabit Ethernet controller - working
+Ralink corp. RT2790 Wireless 802.11n 1T/2R PCIe WiFI - working
+High Definition Audio (HDMI) - working
+High Definitition Auidio (Analog Stereo) - working
+Multi-Card Reader - working
+
+File System Support:
+*Fuse
+*NTFS (rw)
+*CIFS/Samba
+*Ext2/3/4
+*vFAT
+
+
+Overview of Configuration:
+
+BFS (BrainFuckScheduler) is used in both PF and CK versions. In the Vanilla configuration Cgroup is used with CONFIG_SCHED_AUTOGROUP=Y
+Other than those differences the rest of the kernel configuration is the same. The main difference in the PF patched kernel and CK
+patched kernel, is PF kernel also supports TuxONIce. 
+
+Why are the binary images so big? 
+The binaries include the firmware needed for the Radeon HD 6310 that the Zbox uses, this adds aprox 2.5MB to the bzImage. This will 
+eliminate the need for obtaining the PALM and SUMO firmware that the Zacate based APU needs to load for KMS to work. 
+
+
+FGLRX Users:
+
+If you intend to use the proprietary Catalyst driver provided by ATI a.k.a. FGLRX, then you will need to disable KMS in your boot loader
+configuration.  This is typically done by appending 'nomodeset'  to the end of your kernel boot arguments (without the quotes) 
+
+
+Is this all I need to boot Linux?  
+
+To boot linux, yes. However if you are a developer and you compile software that will look for the kernel headers for your current
+running kernel, you will also need to grab the sources (and patches if using CK/PF) and extract them to /usr/src/linux-$(uname -r)
+Don't forget to apply the patches to the source. Then create a symlink to /usr/src/linux like: 
+	ln -s /usr/src/linux-$(uname -r) /usr/src/linux 
+Create your modules directory if you intend to compile extra 3rd party modules for your kernel:
+	mkdir -p /lib/modules/$(uname -r)
+
+Typically configure scripts will generate a Makefile to use your /usr/src/linux for compiling modules, if you run into a script 
+that doesn't find your linux sources, you may need to edit the environment variables to search the correct path for your linux
+source code. 
+
+If you are using this binary kernel, chances are you know what to do with it if you are a developer, if you aren't a developer,
+or you don't run a source based distribution, you shouldn't have to worry about your linux source code, with the exception
+of building 3rd Party drivers such as VMware, Virtualbox, or FGLRX modules. 
+
+
+Enjoy this fine tuned kernel for your Zotac Zbox :)
+
+

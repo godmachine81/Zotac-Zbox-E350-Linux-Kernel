@@ -1,0 +1,5 @@
+[KERNEL]
+http://www.kernel.org/pub/linux/kernel/v3.0/linux-3.2.6.tar.bz2
+
+[CK PATCH]
+http://ck.kolivas.org/patches/3.0/3.2/3.2-ck1/patch-3.2-ck1.bz2

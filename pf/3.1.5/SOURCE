@@ -1,0 +1,5 @@
+[KERNEL]
+http://www.kernel.org/pub/linux/kernel/v3.0/linux-3.1.5.tar.bz2
+
+[PF PATCH]
+http://pf.natalenko.name/sources/3.1/patch-3.1.5-pf.bz2
